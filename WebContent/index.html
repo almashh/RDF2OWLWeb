@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>RDF-OWL</title>
+</head>
+<body>
+	<form id="sparql-form" name="sparql form" action="SparqlResults.jsp"
+		method="POST">
+		<fieldset>
+			<legend>Enter SPARQL Query</legend>
+			<section >
+				<p>
+					<textarea name="query" id="textarea"  rows="20" style="width: 100%;"
+						cols=""></textarea>
+				</p>
+				<p>
+				<div >
+					<label for="sparqlEndpoint">SPARQL endpoint</label><br />
+					<div >
+						<input value="http://dbpedia.org/sparql" name="sparqlEndpoint"  id="sparqlEndpoint" style="width: 100%" type="text" />
+					</div>
+				</div>
+				
+				<p style="float: right;">
+					<label for="render">Output: </label><select name="render"
+						id="render"><option selected="selected" value="HTML">HTML</option>
+						<option value="XML">XML</option>
+						<option value="JSON">JSON</option>
+						<option value="CSV">CSV</option>
+						<option value="TSV">TSV</option>
+						<option value="RDF/XML">RDF/XML</option>
+						<option value="N3">RDF/N3</option></select>
+				</p>
+
+				<p>
+					<input value="Submit Query" type="submit"> &nbsp;
+					<input value="Reset" type="reset">
+				</p>
+			</section>
+		</fieldset>
+	</form>
+</body>
+</html>
