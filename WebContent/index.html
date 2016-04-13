@@ -5,20 +5,24 @@
 <title>RDF-OWL</title>
 </head>
 <body>
-	<form id="sparql-form" name="sparql form" action="SparqlResults.jsp"
-		method="POST">
+	<form id="sparql-form" name="sparql form" action="RDF2OWL.jsp" method="POST">
 		<fieldset>
 			<legend>Enter SPARQL Query</legend>
 			<section >
 				<p>
-					<textarea name="query" id="textarea"  rows="20" style="width: 100%;"
-						cols=""></textarea>
+				<textarea name="sparqlQuery" id="textarea"  rows="20" style="width: 100%;"cols="">
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?protein ?ontid WHERE {
+?protein up:classifiedWith ?ontid .
+ FILTER regex(str(?ontid),"GO+")
+} LIMIT 10</textarea>
 				</p>
 				<p>
 				<div >
 					<label for="sparqlEndpoint">SPARQL endpoint</label><br />
 					<div >
-						<input value="http://dbpedia.org/sparql" name="sparqlEndpoint"  id="sparqlEndpoint" style="width: 100%" type="text" />
+						<input value="http://sparql.uniprot.org/" name="sparqlEndpoint"  id="sparqlEndpoint" style="width: 100%" type="text" />
 					</div>
 				</div>
 				<div >
