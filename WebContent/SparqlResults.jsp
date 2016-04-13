@@ -9,7 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ page import="org.apache.jena.sparql.*"%>
+<%@ page import="org.apache.jena.sparql.* "%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +23,7 @@
 
 		<%
 			String service = request.getParameter("sparqlEndpoint");
-			String query = request.getParameter("query");
+			String query = request.getParameter("sparqlQuery");
 			QueryExecution qe = QueryExecutionFactory.sparqlService(service, query);
 			
 			
