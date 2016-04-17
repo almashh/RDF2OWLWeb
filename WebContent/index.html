@@ -6,7 +6,7 @@
 </head>
 <body>
 
-	<form id="sparql-form" name="sparql form" action="RDF2OWL.jsp" method="POST">
+	<form id="sparql-form" name="sparql form" action="RDF2OWL2.jsp" method="POST">
 
 	<form id="sparql-form" name="sparql form" action="SparqlResults.jsp" method="POST">
 
@@ -32,7 +32,7 @@ SELECT DISTINCT ?protein ?ontid WHERE {
 				<div >
 					<label for="RelationalPattern">Relational Pattern</label><br />
 					<div >
-						<input value="" name="RelationalPattern"  id="RelationalPattern" style="width: 100%" type="text" />
+						<input value="subclassOf(hasFunction some" name="RelationalPattern"  id="RelationalPattern" style="width: 100%" type="text" />
 					</div>
 				</div>
 				
