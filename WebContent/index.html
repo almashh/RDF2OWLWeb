@@ -6,16 +6,16 @@
 </head>
 <body>
 
-	<form id="sparql-form" name="sparql form" action="RDF2OWL2.jsp" method="POST">
-
-	<form id="sparql-form" name="sparql form" action="SparqlResults.jsp" method="POST">
+	<form id="sparql-form" name="sparql form" action="RDF2OWL2.jsp"
+		method="POST">
 
 		<fieldset>
 			<legend>Enter SPARQL Query</legend>
-			<section >
+			<section>
 				<p>
-				<textarea name="sparqlQuery" id="textarea"  rows="20" style="width: 100%;"cols="">
-PREFIX up: <http://purl.uniprot.org/core/>
+					<textarea name="sparqlQuery" id="textarea" rows="20"
+						style="width: 100%;" cols="">
+PREFIX up: <http: //purl.uniprot.org/core />
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?protein ?ontid WHERE {
 ?protein up:classifiedWith ?ontid .
@@ -23,37 +23,32 @@ SELECT DISTINCT ?protein ?ontid WHERE {
 } LIMIT 10</textarea>
 				</p>
 				<p>
-				<div >
+				<div>
 					<label for="sparqlEndpoint">SPARQL endpoint</label><br />
-					<div >
-						<input value="http://sparql.uniprot.org/" name="sparqlEndpoint"  id="sparqlEndpoint" style="width: 100%" type="text" />
+					<div>
+						<input value="http://sparql.uniprot.org/" name="sparqlEndpoint"
+							id="sparqlEndpoint" style="width: 100%" type="text" />
 					</div>
 				</div>
-				<div >
+				<div>
 					<label for="RelationalPattern">Relational Pattern</label><br />
-					<div >
-						<input value="subclassOf(hasFunction some" name="RelationalPattern"  id="RelationalPattern" style="width: 100%" type="text" />
+					<div>
+						<!-- <input value="subclassOf(hasFunction some"
+							name="RelationalPattern" id="RelationalPattern"
+							style="width: 100%" type="text" /> -->
+							 <input type="text" name="RelationalPattern" style="width: 100%" list="Patterns" required="required">
+						  <datalist id="Patterns">
+							<option value="subclassOf(hasFunction some"> hasFunction</option>
+						</datalist>
 					</div>
 				</div>
-				
-				
-				<p style="float: right;">
-					<label for="render">Output: </label><select name="render"
-						id="render"><option selected="selected" value="HTML">HTML</option>
-						<option value="XML">XML</option>
-						<option value="JSON">JSON</option>
-						<option value="CSV">CSV</option>
-						<option value="TSV">TSV</option>
-						<option value="RDF/XML">RDF/XML</option>
-						<option value="N3">RDF/N3</option></select>
-				</p>
-
 				<p>
-					<input value="Submit Query" type="submit"> &nbsp;
-					<input value="Reset" type="reset">
+					<input value="Submit Query" type="submit"> &nbsp; <input
+						value="Reset" type="reset" >
 				</p>
 			</section>
 		</fieldset>
+		 <progress id="p" value="1" max="100" hidden="true"></progress> 
 	</form>
 </body>
 </html>

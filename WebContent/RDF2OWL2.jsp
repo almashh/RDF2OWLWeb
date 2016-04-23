@@ -43,6 +43,8 @@ private static class Provider extends CachingBidirectionalShortFormProvider {
 
 %>
 
+
+
 <%
 String sparqlQuery = request.getParameter("sparqlQuery");
 String sparqlEndpoint = request.getParameter("sparqlEndpoint");
