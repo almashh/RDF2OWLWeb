@@ -6,48 +6,67 @@
 </head>
 <body>
 
-	<form id="sparql-form" name="sparql form" action="RDF2OWL2.jsp"
+	<form id="sparql-form" name="sparql form" action="RDF2OWL3.jsp"
 		method="POST">
 
 		<fieldset>
-			<legend>Enter SPARQL Query</legend>
+			<legend>Enter SPARQL Query1</legend>
 			<section>
 				<p>
-					<textarea name="sparqlQuery" id="textarea" rows="20"
-						style="width: 100%;" cols="">
-PREFIX up: <http: //purl.uniprot.org/core />
+					<textarea name="sparqlQuery1" id="textarea" rows="20"
+						style="width: 50%;" cols="">
+PREFIX GO: <http://purl.uniprot.org/go/>
+PREFIX taxon:<http://purl.uniprot.org/taxonomy/>
+PREFIX up: <http://purl.uniprot.org/core/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?protein ?ontid WHERE {
 ?protein up:classifiedWith ?ontid .
- FILTER regex(str(?ontid),"GO+")
-} LIMIT 10</textarea>
-				</p>
-				<p>
+FILTER regex(str(?ontid),\"GO+\")} LIMIT 10</textarea>
 				<div>
+					<label for="RelationalPattern">Relational Pattern</label><br />
+					<div>
+					<input value="has_function"
+							name="RelationalPattern1" id="RelationalPattern"
+							style="width: 100%" type="text" />
+							
+					</div>
+				</div>
+				
+			</section></fieldset>
+			<fieldset>
+			<legend>Enter SPARQL Query2</legend>
+			<section>
+				<p>
+					<textarea name="sparqlQuery2" id="textarea" rows="20"
+						style="width: 50%;" cols="">
+PREFIX GO: <http://purl.uniprot.org/go/>
+PREFIX taxon:<http://purl.uniprot.org/taxonomy/>
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?protein ?species WHERE {
+?protein up:organism ?species. } LIMIT 10 </textarea>
+
+				<div>
+					<label for="RelationalPattern">Relational Pattern</label><br />
+					<div>
+						<input value="has_part"
+							name="RelationalPattern2" id="RelationalPattern"
+							style="width: 100%" type="text" />
+					</div>
+				</div>
+				
+			</section></fieldset>
+				<p>
+					<div>
 					<label for="sparqlEndpoint">SPARQL endpoint</label><br />
 					<div>
 						<input value="http://sparql.uniprot.org/" name="sparqlEndpoint"
 							id="sparqlEndpoint" style="width: 100%" type="text" />
 					</div>
 				</div>
-				<div>
-					<label for="RelationalPattern">Relational Pattern</label><br />
-					<div>
-						<!-- <input value="subclassOf(hasFunction some"
-							name="RelationalPattern" id="RelationalPattern"
-							style="width: 100%" type="text" /> -->
-							 <input type="text" name="RelationalPattern" style="width: 100%" list="Patterns" required="required">
-						  <datalist id="Patterns">
-							<option value="subclassOf(hasFunction some"> hasFunction</option>
-						</datalist>
-					</div>
-				</div>
-				<p>
 					<input value="Submit Query" type="submit"> &nbsp; <input
 						value="Reset" type="reset" >
 				</p>
-			</section>
-		</fieldset>
 		 <progress id="p" value="1" max="100" hidden="true"></progress> 
 	</form>
 </body>
