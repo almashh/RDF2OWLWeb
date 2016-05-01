@@ -21,7 +21,7 @@ PREFIX up: <http://purl.uniprot.org/core/>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?protein ?ontid WHERE {
 ?protein up:classifiedWith ?ontid .
-FILTER regex(str(?ontid),\"GO+\")} LIMIT 10</textarea>
+FILTER regex(str(?ontid),"GO+")} LIMIT 10</textarea>
 				<div>
 					<label for="RelationalPattern">Relational Pattern</label><br />
 					<div>

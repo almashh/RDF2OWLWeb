@@ -90,6 +90,8 @@ String relationalPattern1 = request.getParameter("RelationalPattern1");
 String sparqlQuery2 = request.getParameter("sparqlQuery2");
 String relationalPattern2 = request.getParameter("RelationalPattern2");
 String sparqlEndpoint = request.getParameter("sparqlEndpoint");
+
+
 /* out.print("<br>");
 out.println(sparqlQuery2);
 out.print("<br>");
@@ -153,8 +155,13 @@ out.print("</a>");
 
 
 }catch (Exception e) {
+	
+	
+	out.print("<br>");
 
-	out.println("An exception occurred: " + e.getMessage());
+	//out.println("An exception occurred: " + e.getMessage());
+	out.print("<br>");
+	e.printStackTrace(new  java.io.PrintWriter(out));
 
 }
 finally {
