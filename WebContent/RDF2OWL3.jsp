@@ -92,23 +92,6 @@ String relationalPattern2 = request.getParameter("RelationalPattern2");
 String sparqlEndpoint = request.getParameter("sparqlEndpoint");
 
 
-/* out.print("<br>");
-out.println(sparqlQuery2);
-out.print("<br>");
-out.println(relationalPattern2);
-out.print("<br>");
-out.println(sparqlEndpoint);
-out.print("<br>");
-
-out.println(sparqlQuery1);
-out.print("<br>");
-out.println(relationalPattern1);
-out.print("<br>");
- */
-
-
-
-
 
 final  String goOnt = "http://purl.obolibrary.org/obo/go.owl";
 final  String ncbiOnt = "http://purl.obolibrary.org/obo/ncbitaxon.owl";
