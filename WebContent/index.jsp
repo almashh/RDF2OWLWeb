@@ -27,10 +27,8 @@ SELECT DISTINCT ?protein ?ontid WHERE {
 FILTER regex(str(?ontid),"GO+")} LIMIT 10
 				</textarea>
 			<div>
-				<label for="RelationalPattern">Relational Pattern</label><br />
-				<div>
-					<input value="has_function" name="RelationalPattern"
-						id="RelationalPattern" style="width: 100%" type="text" />
+				<label for="RelationalPattern">Relational Pattern:</label><br />
+				<div>?X subClassOf (<input value="has_function" name="RelationalPattern" id="RelationalPattern" type="text" style="text-align: center " />some ?Y)
 				</div>
 			</div>
 
