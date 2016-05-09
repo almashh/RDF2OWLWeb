@@ -74,7 +74,8 @@ public  OWLOntology createOntologyFromSparql(ResultSet results,String relational
           shortFormProvider.add(dataFactory.getOWLClass(IRI.create(str1)));
           shortFormProvider.add(dataFactory.getOWLClass(IRI.create(str2)));
           shortFormProvider.add(dataFactory.getOWLObjectProperty(IRI.create("http://aber-owl.org/"+relationalPattern)));
-          String input = var1[var1.length-1] + " subClassOf("+relationalPattern+" some " + var2[var2.length-1] + ")";
+          String input = var1[var1.length-1] + " subClassOf( "+relationalPattern+ " "+ var2[var2.length-1] + ")";
+         
           ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
           parser.setOWLEntityChecker(entityChecker);
           parser.setStringToParse(input);
@@ -87,7 +88,7 @@ public  OWLOntology createOntologyFromSparql(ResultSet results,String relational
 %>
 
 
-	<%
+<%
 String sparqlQuery = request.getParameter("sparqlQuery");
 String relationalPattern = request.getParameter("RelationalPattern");
 
@@ -97,9 +98,6 @@ String SubmitQuery = request.getParameter("SubmitQuery");
 String SaveOntology = request.getParameter("SaveOntology");
 String Reset = request.getParameter("Reset");
 
-
-final  String goOnt = "http://purl.obolibrary.org/obo/go.owl";
-final  String ncbiOnt = "http://purl.obolibrary.org/obo/ncbitaxon.owl";
 final  String mergedOnt = "OutOntologies/mergedOnt"+session.getId()+".owl";
 
 final  OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
@@ -146,27 +144,42 @@ if (SaveOntology !=null) {
 
 	
 	for (int i=1; i< queryCounter+1; i++){
-		out.println(" <br>" +i );
+		    //out.println(" <br>" +i );
 			ResultSet results=  (ResultSet)session.getAttribute("results"+i);
+			//out.println(" <br>" + "?X"+ " subClassOf("+relationalPattern+ " "+ " ?Y" + ")" );
+		
 			OWLOntology newontology = createOntologyFromSparql(results,relationalPattern,ontology,dataFactory,manager);	
 			OWLOntologyMerger merger = new OWLOntologyMerger(manager);
-			out.println("New ontologies merged .......");
-			manager.saveOntology(ontology,IRI.create(new File( getServletContext().getRealPath(mergedOnt))));
+			//out.println("New ontologies merged .......");
+			//
 		}
 			
+	manager.saveOntology(ontology,IRI.create(new File( getServletContext().getRealPath(mergedOnt))));
+	
+	if (request.getParameter("refOntology") != null) {
+
+		String[] refOntologies = request.getParameterValues("refOntology");
+
+		//out.print(refOntologies.length);
+
+		for (int i = 0; i < refOntologies.length; i++) {
+
+			//out.print(refOntologies[i] + "<br>");
+			OWLImportsDeclaration imports = manager.getOWLDataFactory().getOWLImportsDeclaration(IRI.create(refOntologies[i]));
+			manager.applyChange(new AddImport(ontology, imports));
+			
+		}
+	}
 		
-	OWLImportsDeclaration importsGo = manager.getOWLDataFactory().getOWLImportsDeclaration(IRI.create("http://purl.obolibrary.org/obo/go.owl"));
-	manager.applyChange(new AddImport(ontology, importsGo));
-	OWLImportsDeclaration importsNCBI = manager.getOWLDataFactory().getOWLImportsDeclaration(IRI.create("http://purl.obolibrary.org/obo/ncbitaxon.owl"));
-	manager.applyChange(new AddImport(ontology, importsNCBI));
-		
-		// manager.saveOntology(ontology,IRI.create(new File( getServletContext().getRealPath(mergedOnt))));
-		// out.println("New Ontology saved to: "+ mergedOnt); 
+	
+		//save the ontnolgy 
+		manager.saveOntology(ontology,IRI.create(new File( getServletContext().getRealPath(mergedOnt))));
+		out.println("New Ontology saved to: "+ mergedOnt); 
 		
 		// //output a link to created onotology 
 		
 	out.print("<a href='"+mergedOnt+"'"+"> ");
-	out.print(mergedOnt) ;
+	out.print("Here is the merged onotology") ;
 	out.print("</a>");
 }
 
@@ -179,7 +192,7 @@ if (SaveOntology !=null) {
 	//out.println("An exception occurred: " + e.getMessage());
 	out.print("<br>");
 	e.printStackTrace(new  java.io.PrintWriter(out));
-	response.sendRedirect("index.jsp?msg=Query failed ");
+	//response.sendRedirect("index.jsp?msg=Query failed ");
 
 }
 finally {

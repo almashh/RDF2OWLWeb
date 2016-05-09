@@ -28,38 +28,57 @@ FILTER regex(str(?ontid),"GO+")} LIMIT 10
 				</textarea>
 			<div>
 				<label for="RelationalPattern">Relational Pattern:</label><br />
-				<div>?X subClassOf (<input value="has_function" name="RelationalPattern" id="RelationalPattern" type="text" style="text-align: center " />some ?Y)
+				<div>?X  <input value="has-function some" name="RelationalPattern" id="RelationalPattern" type="text" style="width: 50%;" />  ?Y
 				</div>
 			</div>
-
-			</section>
-		</fieldset>
-		<p>
-		<div>
+			<div>
 			<label for="sparqlEndpoint">SPARQL endpoint</label><br />
 			<div>
 				<input value="http://sparql.uniprot.org/" name="sparqlEndpoint"
-					id="sparqlEndpoint" style="width: 100%" type="text" />
+					id="sparqlEndpoint" style="width: 50%" type="text" />
 			</div>
 		</div>
-		<p>
+			</section>
+			<p>
 			<input name="SubmitQuery" value="Submit Query" type="submit"> &nbsp;
+				<%  if (request.getParameter("msg") !=null)
+				 	out.println(" <br>"+ request.getParameter("msg") + " <br>"  );
+				%>
+		</fieldset>
+		<p>
+		
+		
+
+
+		<p>
+		<fieldset>
+		<div>
+			<label for="refOntology">Import Reference Ontology</label><br />
+			<div>
+				<select name="refOntology" multiple >
+					<option value="http://purl.obolibrary.org/obo/hp.owl">Human Phenotype Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/go.owl">Gene Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/ncbitaxon.owl">NCBI taxonomy Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/ro.owl">Relational Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/uberon.owl">beron Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/pato.owl">Phenotypic Quality Ontology</option>
+					<option value="http://purl.obolibrary.org/obo/chebi.owl">Chebi Ontology</option>
+				</select>
+			</div>
+		</div>
+			
 			<input name="SaveOntology" value="Save a Ontology" type="submit"> &nbsp;
 			<input name="Reset" value="Reset" type="submit">
 			
 
 
-			<%
-				
-				 if (request.getParameter("msg") !=null)
-				 	out.println(" <br>"+ request.getParameter("msg") + " <br>"  );
-				%>
+		
 
 		</p>
 		</section>
 		</fieldset>
 	</form>
-		<%
+		<% // for debugining
 	Enumeration keys = session.getAttributeNames();
 while (keys.hasMoreElements())
 {
