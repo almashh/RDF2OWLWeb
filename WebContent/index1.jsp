@@ -19,7 +19,13 @@
 			<p>
 				<textarea name="sparqlQuery" id="textarea" rows="20"
 					style="width: 50%;" cols="">
-
+PREFIX GO: <http://purl.uniprot.org/go/>
+PREFIX taxon:<http://purl.uniprot.org/taxonomy/>
+PREFIX up: <http://purl.uniprot.org/core/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?protein ?ontid WHERE {
+?protein up:classifiedWith ?ontid .
+FILTER regex(str(?ontid),"GO+")} LIMIT 10
 				</textarea>
 			<div>
 				<label for="relPattern">Relational Pattern:</label><br />
@@ -42,7 +48,7 @@
 			<div>
 			<label for="sparqlEndpoint">SPARQL endpoint:</label><br />
 			<div>
-				<input value="" name="sparqlEndpoint" id="sparqlEndpoint" style="width: 50%" type="text" />
+				<input value="http://sparql.uniprot.org/" name="sparqlEndpoint" id="sparqlEndpoint" style="width: 50%" type="text" />
 			</div>
 		</div>
 			</section>

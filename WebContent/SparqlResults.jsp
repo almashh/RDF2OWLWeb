@@ -29,6 +29,7 @@
 			
 			try {
 				ResultSet rs = qe.execSelect();
+				
 				List<String> l=rs.getResultVars();
 				out.print("<table border=1 align=\"center\">");
 				out.print("<tr>");

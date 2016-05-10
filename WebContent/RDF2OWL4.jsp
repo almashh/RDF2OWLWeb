@@ -56,7 +56,7 @@ public ResultSet getSparqlResults(String sparqlQuery, String sparqlEndpoint){
     return results;
 }
 
-public  OWLOntology createOntologyFromSparql(ResultSet results,String relationalPattern, OWLOntology ontology,OWLDataFactory dataFactory,OWLOntologyManager manager){
+public  OWLOntology createOntologyFromSparql(ResultSet results,String relationalPattern,String operator, OWLOntology ontology,OWLDataFactory dataFactory,OWLOntologyManager manager){
 
 	  List<String> classList = results.getResultVars();
 
@@ -73,8 +73,12 @@ public  OWLOntology createOntologyFromSparql(ResultSet results,String relational
           OWLEntityChecker entityChecker = new ShortFormEntityChecker(shortFormProvider);
           shortFormProvider.add(dataFactory.getOWLClass(IRI.create(str1)));
           shortFormProvider.add(dataFactory.getOWLClass(IRI.create(str2)));
-          shortFormProvider.add(dataFactory.getOWLObjectProperty(IRI.create("http://aber-owl.org/"+relationalPattern)));
-          String input = var1[var1.length-1] + " subClassOf( "+relationalPattern+ " "+ var2[var2.length-1] + ")";
+          String patternURL = relationalPattern;
+        
+          
+          shortFormProvider.add(dataFactory.getOWLObjectProperty(IRI.create("http://aber-owl.org/"+patternURL)));
+          String input = var1[var1.length-1] + " subClassOf("+relationalPattern+operator+var2[var2.length-1] + ")";
+        
          
           ManchesterOWLSyntaxParser parser = OWLManager.createManchesterParser();
           parser.setOWLEntityChecker(entityChecker);
@@ -89,25 +93,25 @@ public  OWLOntology createOntologyFromSparql(ResultSet results,String relational
 
 
 <%
-String sparqlQuery = request.getParameter("sparqlQuery");
-String relationalPattern = request.getParameter("RelationalPattern");
-
-String sparqlEndpoint = request.getParameter("sparqlEndpoint");
-
-String SubmitQuery = request.getParameter("SubmitQuery");
-String SaveOntology = request.getParameter("SaveOntology");
-String Reset = request.getParameter("Reset");
-
-final  String mergedOnt = "OutOntologies/mergedOnt"+session.getId()+".owl";
-
-final  OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
-final  OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-
-
-
 
 try{
 
+	String sparqlQuery = request.getParameter("sparqlQuery");
+	String relPattern = request.getParameter("relPattern");
+	relPattern.trim();
+
+   String operator = request.getParameter("operator");
+	
+	String sparqlEndpoint = request.getParameter("sparqlEndpoint");
+	
+	String SubmitQuery = request.getParameter("SubmitQuery");
+	String SaveOntology = request.getParameter("SaveOntology");
+	String Reset = request.getParameter("Reset");
+
+	final  String mergedOnt = "OutOntologies/mergedOnt"+session.getId()+".owl";
+
+	final  OWLDataFactory dataFactory = OWLManager.getOWLDataFactory();
+	final  OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 	
 Integer queryCounter = (Integer)session.getAttribute("queryCounter");
 OWLOntology ontology = manager.createOntology(IRI.create("http://aber-owl.net/RDF2OWLAll.owl"));
@@ -136,6 +140,8 @@ if (SubmitQuery !=null) {
  session.setAttribute("queryCounter",queryCounter);
 //save the result as session object
  session.setAttribute("results"+queryCounter,results);
+ session.setAttribute("operator"+queryCounter,operator);
+ session.setAttribute("relPattern"+queryCounter,relPattern);
  response.sendRedirect("index.jsp?msg=Query Completed successfully ");
  
 }
@@ -144,11 +150,13 @@ if (SaveOntology !=null) {
 
 	
 	for (int i=1; i< queryCounter+1; i++){
-		    //out.println(" <br>" +i );
+		   // out.println(" <br>" +i );
 			ResultSet results=  (ResultSet)session.getAttribute("results"+i);
-			//out.println(" <br>" + "?X"+ " subClassOf("+relationalPattern+ " "+ " ?Y" + ")" );
+			String rp=  (String) session.getAttribute("relPattern"+i);
+			String op = (String) session.getAttribute("operator"+i); 
+		    //out.println(" <br>" + "?X"+ " subClassOf("+rp+ op+ "?Y" + ")" );
 		
-			OWLOntology newontology = createOntologyFromSparql(results,relationalPattern,ontology,dataFactory,manager);	
+			OWLOntology newontology = createOntologyFromSparql(results,rp,op,ontology,dataFactory,manager);	
 			OWLOntologyMerger merger = new OWLOntologyMerger(manager);
 			//out.println("New ontologies merged .......");
 			//
@@ -172,14 +180,15 @@ if (SaveOntology !=null) {
 	}
 		
 	
-		//save the ontnolgy 
+		//resave the ontnolgy 
 		manager.saveOntology(ontology,IRI.create(new File( getServletContext().getRealPath(mergedOnt))));
-		out.println("New Ontology saved to: "+ mergedOnt); 
+		//out.println("New Ontology saved to: "+ mergedOnt); 
 		
 		// //output a link to created onotology 
 		
 	out.print("<a href='"+mergedOnt+"'"+"> ");
-	out.print("Here is the merged onotology") ;
+	out.print("Here is the merged ontology") ;
+	out.print("<img  alt=\"ontology\" src=\"dw.png\" width=\"50\" height=\"50\">");
 	out.print("</a>");
 }
 
@@ -189,10 +198,10 @@ if (SaveOntology !=null) {
 	
 	out.print("<br>");
 
-	//out.println("An exception occurred: " + e.getMessage());
+	out.println("An exception occurred: " + e.getMessage());
 	out.print("<br>");
-	e.printStackTrace(new  java.io.PrintWriter(out));
-	//response.sendRedirect("index.jsp?msg=Query failed ");
+	//e.printStackTrace(new  java.io.PrintWriter(out));
+	response.sendRedirect("index.jsp?msg=Query failed ");
 
 }
 finally {
