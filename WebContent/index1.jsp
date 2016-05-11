@@ -34,12 +34,12 @@ FILTER regex(str(?ontid),"GO+")} LIMIT 10
 					<select name="operator">
 					  <option value=" some "  selected="selected">some</option>
 					  <option value=" only ">only</option>
-					  <option value=" min ">min</option>
-					  <option value=" max ">max</option>
-					  <option value=" only ">only</option>
-					  <option value=" Self ">Self</option>
-					  <option value=" exactly ">exactly</option>
-					 <option value=" value ">value</option>
+<!-- 					  <option value=" min ">min</option> -->
+<!-- 					  <option value=" max ">max</option> -->
+<!-- 					  <option value=" only ">only</option> -->
+<!-- 					  <option value=" Self ">Self</option> -->
+<!-- 					  <option value=" exactly ">exactly</option> -->
+<!-- 					 <option value=" value ">value</option> -->
 					</select>
 					?Y
 				</div>

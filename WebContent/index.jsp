@@ -28,12 +28,12 @@
 					<select name="operator">
 					  <option value=" some "  selected="selected">some</option>
 					  <option value=" only ">only</option>
-					  <option value=" min ">min</option>
-					  <option value=" max ">max</option>
-					  <option value=" only ">only</option>
-					  <option value=" Self ">Self</option>
-					  <option value=" exactly ">exactly</option>
-					 <option value=" value ">value</option>
+<!-- 					  <option value=" min ">min</option> -->
+<!-- 					  <option value=" max ">max</option> -->
+<!-- 					  <option value=" only ">only</option> -->
+<!-- 					  <option value=" Self ">Self</option> -->
+<!-- 					  <option value=" exactly ">exactly</option> -->
+<!-- 					 <option value=" value ">value</option> -->
 					</select>
 					?Y
 				</div>
@@ -60,9 +60,9 @@
 
 		<p>
 		<fieldset>
-		<legend>2) Save as a OWL File </legend>
+		<legend>2) Save as an OWL File </legend>
 		<div>
-			<label for="refOntology">Import Reference Ontologies</label><br />
+			<label for="refOntology">Import Reference Ontologies:</label><br />
 			<div>
 				<select name="refOntology" multiple >
 					<option value="http://purl.obolibrary.org/obo/hp.owl">Human Phenotype Ontology</option>
