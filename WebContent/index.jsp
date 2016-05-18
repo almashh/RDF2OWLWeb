@@ -8,16 +8,21 @@
 <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 <title>RDF-OWL</title>
 </head>
+<script type="text/javascript" src="Examples.js" >   </script>
 <body>
 
 	<form id="sparql-form" name="sparql form" action="RDF2OWL4.jsp"
 		method="post">
 
 		<fieldset>
-			<legend>1) Enter SPARQL Queries</legend>
+			<legend>1) Enter SPARQL Queries<br></legend>
+				<input name="Example1" value="Example 1" type="button" onclick="example1()"> &nbsp;
+				<input name="Example2" value="Example 2" type="button" onclick="example2()"> &nbsp;
+				 &nbsp;
+				
 			<section>
 			<p>
-				<textarea name="sparqlQuery" id="textarea" rows="20"
+				<textarea name="sparqlQuery" id="sparqlQuery" rows="20"
 					style="width: 50%;" cols="">
 
 				</textarea>
