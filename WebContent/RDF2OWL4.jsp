@@ -100,7 +100,7 @@ try{
 	String relPattern = request.getParameter("relPattern");
 	relPattern.trim();
 
-   String operator = request.getParameter("operator");
+    String operator = request.getParameter("operator");
 	
 	String sparqlEndpoint = request.getParameter("sparqlEndpoint");
 	
@@ -119,7 +119,7 @@ OWLOntology ontology = manager.createOntology(IRI.create("http://aber-owl.net/RD
 if (Reset !=null) {
 	
 	session.invalidate();
-	response.sendRedirect("index.jsp?msg=Web Application session is resetted ");
+	response.sendRedirect("index.jsp?msg="+java.net.URLEncoder.encode("Web Application session is resetted"));
 
 }
 
@@ -142,7 +142,7 @@ if (SubmitQuery !=null) {
  session.setAttribute("results"+queryCounter,results);
  session.setAttribute("operator"+queryCounter,operator);
  session.setAttribute("relPattern"+queryCounter,relPattern);
- response.sendRedirect("index.jsp?msg=Query Completed successfully ");
+ response.sendRedirect("index.jsp?msg="+java.net.URLEncoder.encode("Query Completed successfully"));
  
 }
 
@@ -200,8 +200,8 @@ if (SaveOntology !=null) {
 
 	out.println("An exception occurred: " + e.getMessage());
 	out.print("<br>");
-	//e.printStackTrace(new  java.io.PrintWriter(out));
-	response.sendRedirect("index.jsp?msg=Query failed ");
+	e.printStackTrace(new  java.io.PrintWriter(out));
+	//response.sendRedirect("index.jsp?msg="+java.net.URLEncoder.encode("Query failed"));
 
 }
 finally {

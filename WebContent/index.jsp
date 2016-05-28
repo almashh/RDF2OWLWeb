@@ -6,20 +6,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-<title>RDF-OWL</title>
+<title>SPARQL2OWL</title>
 </head>
-<script type="text/javascript" src="Examples.js" >   </script>
+ <script type="text/javascript" src="Examples.js" >   </script> 
 <body>
 
-	<form id="sparql-form" name="sparql form" action="RDF2OWL4.jsp"
+	<form id="sparql-form" name="sparql form" action="SPARQL2OWL.jsp"
 		method="post">
 
 		<fieldset>
-			<legend>1) Enter SPARQL Queries<br></legend>
-				<input name="Example1" value="Example 1" type="button" onclick="example1()"> &nbsp;
+		
+			<legend>1) Enter SPARQL Queries</legend>
+			<input name="Example1" value="Example 1" type="button" onclick="example1()"> &nbsp;
 				<input name="Example2" value="Example 2" type="button" onclick="example2()"> &nbsp;
-				 &nbsp;
-				
+ 				 &nbsp; 
 			<section>
 			<p>
 				<textarea name="sparqlQuery" id="sparqlQuery" rows="20"
@@ -28,19 +28,9 @@
 				</textarea>
 			<div>
 				<label for="relPattern">Relational Pattern:</label><br />
-					<div>?X
-					<input value="" name="relPattern" id="relPattern" type="text" />
-					<select name="operator">
-					  <option value=" some "  selected="selected">some</option>
-					  <option value=" only ">only</option>
-<!-- 					  <option value=" min ">min</option> -->
-<!-- 					  <option value=" max ">max</option> -->
-<!-- 					  <option value=" only ">only</option> -->
-<!-- 					  <option value=" Self ">Self</option> -->
-<!-- 					  <option value=" exactly ">exactly</option> -->
-<!-- 					 <option value=" value ">value</option> -->
-					</select>
-					?Y
+					<div>
+					<input value="" name="relPattern" id="relPattern" style="width: 50%" type="text" />
+				
 				</div>
 				<p>
 		</div>
@@ -56,13 +46,10 @@
 			<input name="Reset" value="Reset" type="submit">
 			 <p> <%
 		if (request.getParameter("msg") != null)
-				out.println(" <br> <font size=\"3\" color=\"red\">" + request.getParameter("msg") + "</font> <br>");
-		%>
-
+				out.println(" <br> <font size=\"3\" color=\"green\">" + request.getParameter("msg") + "</font> <br>");
+			
+			 %>
 		</fieldset>
-		
-	  
-
 		<p>
 		<fieldset>
 		<legend>2) Save as an OWL File </legend>
@@ -86,15 +73,13 @@
 		</fieldset>
 	</form>
 	
-
-
 	<%
 		// for debugining
-// 			Enumeration keys = session.getAttributeNames();
-// 			while (keys.hasMoreElements()) {
-// 				String key = (String) keys.nextElement();
-// 				out.println(key + ": " + session.getValue(key) + "<br>");
-// 			}
+ 			Enumeration keys = session.getAttributeNames();
+ 			while (keys.hasMoreElements()) {
+ 				String key = (String) keys.nextElement();
+ 				out.println(key + ": " + session.getValue(key) + "<br>");
+ 			}
 	%>
 </body>
 </html>

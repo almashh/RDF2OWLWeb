@@ -32,7 +32,7 @@ function example1()
 						?disease dcterms:title ?diseaseName . FILTER (str(?diseaseName) = \"Obesity\")\n\
 						?disease rdf:type ncit:C7057 } limit 1000";
          document.getElementById('sparqlQuery').value = query;
-         document.getElementById('relPattern').value= "has-causation some";
+         document.getElementById('relPattern').value= "?gene subClassOf(has-causation some ?disease)";
          document.getElementById('sparqlEndpoint').value='http://rdf.disgenet.org/sparql/';
       }
 
@@ -68,7 +68,7 @@ function example2()
 					?disease dcterms:title ?diseaseName . FILTER (str(?diseaseName) = \"Obesity\")\n\
 					} limit 1000"
          document.getElementById('sparqlQuery').value = query;
-         document.getElementById('relPattern').value= "has-phenotype some";
+         document.getElementById('relPattern').value= "?disease subClassOf(has-phenotype some ?phenotype)";
          document.getElementById('sparqlEndpoint').value='http://rdf.disgenet.org/sparql/';
       }
 
